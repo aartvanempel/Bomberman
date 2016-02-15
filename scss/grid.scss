@@ -1,0 +1,12 @@
+.grid-container {
+  display: flex;
+  flex-wrap: wrap;
+  height: 32rem;
+  width: 32rem;
+  background-color: tomato;
+}
+
+.cell {
+  width: 2rem;
+  height: 2rem;
+}
