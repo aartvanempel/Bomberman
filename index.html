@@ -9,7 +9,7 @@
 	<link rel="icon" type="image/ico" href="/favicon.png"/>
 	<link rel="stylesheet" href="dist/bundle.css">
 </head>
-<body class="center-center" ng-app="myApp" ng-controller="myCtrl">
+<body class="center-center" ng-app="myApp" ng-controller="myCtrl" ng-keydown="down($event)">
 
 	<div class="grid-container" ng-init="createGrid()"></div>
 
@@ -17,7 +17,6 @@
 	<script src="js/libs/angular.js"></script>
 	<script src="js/libs/bootstrap.js"></script>
 	<script src="js/libs/underscore.js"></script>
-	<script src="js/script.js"></script>
 	<script src="js/bomberman_app.js"></script>
 	<script src="js/bomberman_ctrl.js"></script>
 </body>
