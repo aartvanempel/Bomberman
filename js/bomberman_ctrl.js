@@ -31,7 +31,7 @@ app.controller('myCtrl', function($scope) {
       console.log(start);
       event.preventDefault();
     } else if (event.which == 40 && start[1] > 0) {
-      event.preventDefault();
+
       console.log("down");
       start[1] -= 1;
       console.log(start);
