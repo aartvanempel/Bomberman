@@ -3,50 +3,44 @@
 */
 
 var start = [0,0];
-var minH = 0;
-var maxH = 16;
-var minW = 0;
-var maxW = 16;
-
+var currentPosition;
 app.controller('myCtrl', function($scope) {
 
-<<<<<<< HEAD
   $scope.keyBuffer = [];
   $scope.down = function(e) {
 
     $scope.keyBuffer.push(e.keyCode);
 
-    if (event.which == 37 && start[0] > 0) {
-      console.log("left");
-      start[0] -= 1;
-      console.log(start);
-      event.preventDefault();
-    } else if (event.which == 38 && start[1] < 16) {
+    if (event.which == 38 && start[0] > 0) {
       console.log("up");
-      start[1] += 1;
-      console.log(start);
+      start[0] -= 1;
       event.preventDefault();
-    } else if (event.which == 39 && start[0] < 16) {
+    } if (event.which == 39 && start[1] < 15) {
+      console.log("right");
+      start[1] += 1;
+      event.preventDefault();
+    } if (event.which == 40 && start[0] < 15) {
       console.log("right");
       start[0] += 1;
-      console.log(start);
       event.preventDefault();
-    } else if (event.which == 40 && start[1] > 0) {
-
-      console.log("down");
+    } if (event.which == 37 && start[1] > 0) {
+      console.log("left");
       start[1] -= 1;
-      console.log(start);
       event.preventDefault();
     }
+    // add class to current cell
+    currentPosition = start[0] + "-" + start[1];
+    console.log(currentPosition);
+    $(".cell").removeClass("current-cell");
+    $("." + currentPosition).addClass("current-cell");
   }
 
-=======
   $scope.createGrid = function() {
       for(var x = 0; x < 16; x++) {
         for(var y = 0; y < 16; y++) {
-          $(".grid-container").append("<div class='cell " + x + "-" + y + "'>z</div>");
+          $(".grid-container").append("<div class='cell " + x + "-" + y + "'></div>");
         }
       }
   };
->>>>>>> master
+
 });
