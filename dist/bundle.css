@@ -1,1 +1,17 @@
+.grid-container {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  height: 32rem;
+  width: 32rem;
+  background-color: tomato;
+}
+
+.cell {
+  width: 2rem;
+  height: 2rem;
+}
 
