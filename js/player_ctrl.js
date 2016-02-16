@@ -57,13 +57,13 @@ app.controller('playerCtrl', function($scope) {
       }
     }
 
-    // place bomb with space bar
+    // drop a bomb with the space bar
     if (event.which == 32) {
       $("." + currentPosition).addClass("bomb");
       event.preventDefault();
     }
 
-    // add class to current cell
+    // show player on current cell
     currentPosition = start[0] + "-" + start[1];
     console.log(currentPosition);
     $(".cell").removeClass("current-cell");
