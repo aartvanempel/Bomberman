@@ -20,14 +20,11 @@ app.controller('gridCtrl', function($scope) {
         }
       }
     }
-
+    $(".0-0").addClass("current-cell");
     //create random power ups when destroying block (1 kans op 8 per upgrade?)
-
   };
 
 });
-
-
 
 function randomCoordinate(spawnPosition) {
   var randomX;
@@ -60,3 +57,4 @@ function randomCoordinate(spawnPosition) {
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
