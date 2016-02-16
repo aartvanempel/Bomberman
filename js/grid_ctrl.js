@@ -1,4 +1,4 @@
-app.controller('gridCtrl', function($scope) {
+hangmanApp.controller('gridCtrl', function($scope) {
 
 
 
