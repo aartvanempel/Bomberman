@@ -58,7 +58,13 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function rockExplode(bombPosition) {
-  console.log(bombPosition);
-  $("."+bombPosition).addClass("powerup")
+function dropPowerUp(bombPosition) {
+
+  if (totalPowerUps < maxPowerUps) {
+    var chanceForUpdate = getRandomInt(0,8);
+    if (chanceForUpdate > 4) {
+      $("."+bombPosition).addClass("powerup");
+      totalPowerUps++;
+    }
+  }
 }

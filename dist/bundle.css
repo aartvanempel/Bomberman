@@ -24,6 +24,39 @@
   background-color: black;
 }
 
+.animation {
+  -webkit-animation: explosion 0.5s 1;
+  animation: explosion 0.5s 1;
+}
+
+@-webkit-keyframes explosion {
+  0% {
+    background-color: inherit;
+  }
+
+  50% {
+    background-color: red;
+  }
+
+  100% {
+    background-color: inherit;
+  }
+}
+
+@keyframes explosion {
+  0% {
+    background-color: inherit;
+  }
+
+  50% {
+    background-color: red;
+  }
+
+  100% {
+    background-color: inherit;
+  }
+}
+
 .powerup {
   background-color: green;
 }
