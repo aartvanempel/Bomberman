@@ -74,15 +74,32 @@ app.controller('playerCtrl', function($scope) {
     // bomb explosion
     function bombExplosion() {
       bombPosition = bombXY[0] + "-" + bombXY[1];
-      var positionAboveBomb = bombXY[0] + "-" + (bombXY[1]-1);
-      var positionUnderBomb = bombXY[0] + "-" + (bombXY[1]+1);
-      var positionLeftFromBomb = (bombXY[0]-1) + "-" + bombXY[1];
-      var positionRightFromBomb = (bombXY[0]+1) + "-" + bombXY[1];
+      var positionAboveBomb = bombXY[0] + "-" + (bombXY[1] - 1);
+      var positionUnderBomb = bombXY[0] + "-" + (bombXY[1] + 1);
+      var positionLeftFromBomb = (bombXY[0] - 1) + "-" + bombXY[1];
+      var positionRightFromBomb = (bombXY[0] + 1) + "-" + bombXY[1];
       // rock explosions
-      $("." + positionAboveBomb).removeClass("rock");
-      $("." + positionUnderBomb).removeClass("rock");
-      $("." + positionLeftFromBomb).removeClass("rock");
-      $("." + positionRightFromBomb).removeClass("rock");
+      if ($("." + positionAboveBomb).hasClass("rock")) {
+        console.log("RockABOVE");
+        rockExplode(positionAboveBomb);
+
+        $("." + positionAboveBomb).removeClass("rock");
+      }
+      if ($("." + positionUnderBomb).hasClass("rock")) {
+        console.log("rockBELOW");
+        rockExplode(positionUnderBomb);
+        $("." + positionUnderBomb).removeClass("rock");
+      }
+      if ($("." + positionLeftFromBomb).hasClass("rock")) {
+        console.log("rockLeft");
+        rockExplode(positionLeftFromBomb);
+        $("." + positionLeftFromBomb).removeClass("rock");
+      }
+      if ($("." + positionRightFromBomb).hasClass("rock")) {
+        console.log("rockRight");
+        rockExplode(positionRightFromBomb);
+        $("." + positionRightFromBomb).removeClass("rock");
+      }
       // remove bomb
       $("." + bombPosition).removeClass("bomb");
       // when you get hit by the explosion
@@ -102,3 +119,6 @@ app.controller('playerCtrl', function($scope) {
     $("." + currentPosition).addClass("current-cell");
   };
 });
+
+
+
