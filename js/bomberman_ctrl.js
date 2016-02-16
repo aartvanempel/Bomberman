@@ -4,6 +4,8 @@
 
 var start = [0,0];
 var currentPosition;
+
+
 app.controller('myCtrl', function($scope) {
 
   $scope.keyBuffer = [];
@@ -33,7 +35,7 @@ app.controller('myCtrl', function($scope) {
     console.log(currentPosition);
     $(".cell").removeClass("current-cell");
     $("." + currentPosition).addClass("current-cell");
-  }
+  };
 
   $scope.createGrid = function() {
       for(var x = 0; x < 16; x++) {
