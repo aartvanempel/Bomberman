@@ -62,7 +62,9 @@
 }
 
 .current-cell {
-  background-color: #fff;
+  background-color: tomato;
+  background-image: url("http://emojipedia-us.s3.amazonaws.com/cache/fa/14/fa14fee1e9ac87bfa3ff7332eff9e8c8.png");
+  background-size: cover;
 }
 html {
   font-size: 16px;
@@ -87,5 +89,7 @@ body {
 }
 
 .bomb {
-  background-color: #f1c40f;
+  background-color: tomato;
+  background-image: url("http://emojipedia-us.s3.amazonaws.com/cache/9d/b7/9db738d5b3ad5af1e5beaece66b2b045.png");
+  background-size: cover;
 }
