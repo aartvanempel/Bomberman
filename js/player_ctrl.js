@@ -1,12 +1,7 @@
-/**
-* Created by lennartquerter on 15/02/16.
-*/
-
 var start = [0,0];
 var currentPosition;
 
-
-app.controller('myCtrl', function($scope) {
+app.controller('playerCtrl', function($scope) {
 
   $scope.keyBuffer = [];
   $scope.down = function(e) {
@@ -30,19 +25,11 @@ app.controller('myCtrl', function($scope) {
       start[1] -= 1;
       event.preventDefault();
     }
+
     // add class to current cell
     currentPosition = start[0] + "-" + start[1];
     console.log(currentPosition);
     $(".cell").removeClass("current-cell");
     $("." + currentPosition).addClass("current-cell");
   };
-
-  $scope.createGrid = function() {
-      for(var x = 0; x < 16; x++) {
-        for(var y = 0; y < 16; y++) {
-          $(".grid-container").append("<div class='cell " + x + "-" + y + "'></div>");
-        }
-      }
-  };
-
 });
