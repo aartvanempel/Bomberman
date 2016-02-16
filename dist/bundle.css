@@ -7,6 +7,7 @@
   flex-wrap: wrap;
   height: 30rem;
   width: 30rem;
+  background-color: tomato;
 }
 
 .cell {
@@ -14,12 +15,12 @@
   height: 2rem;
 }
 
-.bedrock {
-  background-color: black;
+.rock {
+  background-color: brown;
 }
 
-.rock {
-  background-color: saddlebrown;
+.bedrock {
+  background-color: black;
 }
 
 .current-cell {
@@ -49,5 +50,4 @@ body {
 
 .bomb {
   background-color: #f1c40f;
-  border-radius: 50%;
 }

@@ -1,5 +1,6 @@
 var start = [0,0];
 var currentPosition;
+var bombPosition;
 
 app.controller('playerCtrl', function($scope) {
 
@@ -59,8 +60,26 @@ app.controller('playerCtrl', function($scope) {
 
     // drop a bomb with the space bar
     if (event.which == 32) {
-      $("." + currentPosition).addClass("bomb");
       event.preventDefault();
+      $("." + currentPosition).addClass("bomb");
+      var bombXY = [start[0], start[1]];
+      setInterval(bombExplosion, 3000);
+    }
+
+    // bomb explodes after 3 seconds
+    function bombExplosion() {
+      bombPosition = bombXY[0] + "-" + bombXY[1];
+      var positionAboveBomb = bombXY[0] + "-" + (bombXY[1]-1);
+      var positionUnderBomb = bombXY[0] + "-" + (bombXY[1]+1);
+      var positionLeftFromBomb = (bombXY[0]-1) + "-" + bombXY[1];
+      var positionRightFromBomb = (bombXY[0]+1) + "-" + bombXY[1];
+
+      $("." + positionAboveBomb).removeClass("rock");
+      $("." + positionUnderBomb).removeClass("rock");
+      $("." + positionLeftFromBomb).removeClass("rock");
+      $("." + positionRightFromBomb).removeClass("rock");
+
+      $("." + bombPosition).removeClass("bomb");
     }
 
     // show player on current cell

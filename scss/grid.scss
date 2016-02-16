@@ -3,6 +3,7 @@
   flex-wrap: wrap;
   height: 30rem;
   width: 30rem;
+  background-color: tomato;
 }
 
 .cell {
@@ -10,15 +11,13 @@
   height: 2rem;
 }
 
+.rock {
+  background-color: brown;
+}
 
 .bedrock {
   background-color: black;
 }
-
-.rock {
-  background-color: saddlebrown;
-}
-
 
 .current-cell {
   background-color: #fff;
