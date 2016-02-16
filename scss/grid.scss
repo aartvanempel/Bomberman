@@ -3,21 +3,23 @@
   flex-wrap: wrap;
   height: 30rem;
   width: 30rem;
-  background-color: tomato;
+  background-color: #2ecc71;
 }
 
 .cell {
   width: 2rem;
   height: 2rem;
-  background-color: tomato;
+  background-color: #2ecc71;
 }
 
 .rock {
-  background-color: brown;
+  background-color: #34495e;
 }
 
 .bedrock {
-  background-color: black;
+  background-color: #34495e;
+  background-image: url(../assets/img/bedrock.png);
+  background-size: cover;
 }
 
 .animation {
@@ -31,11 +33,19 @@
 }
 
 .powerup {
-  background-color: green;
+  background-color: #2ecc71;
+  background-image: url("http://emojipedia-us.s3.amazonaws.com/cache/51/f3/51f3a7d42af17414931b379cf547e765.png");
+  background-size: cover;
+}
+
+.bomb {
+  background-color: #2ecc71;
+  background-image: url("http://emojipedia-us.s3.amazonaws.com/cache/9d/b7/9db738d5b3ad5af1e5beaece66b2b045.png");
+  background-size: cover;
 }
 
 .current-cell {
-  background-color: tomato;
-  background-image: url("http://emojipedia-us.s3.amazonaws.com/cache/fa/14/fa14fee1e9ac87bfa3ff7332eff9e8c8.png");
+  background-color: #2ecc71;
+  background-image: url("http://emojipedia-us.s3.amazonaws.com/cache/a8/e7/a8e71b1a2f73804ca62b34d729039256.png");
   background-size: cover;
 }
