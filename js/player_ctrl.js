@@ -67,23 +67,32 @@ app.controller('playerCtrl', function($scope) {
       event.preventDefault();
       $("." + currentPosition).addClass("bomb");
       var bombXY = [start[0], start[1]];
-      setInterval(bombExplosion, 3000);
+      // bomb explodes after 3 seconds
+      setTimeout(bombExplosion, 3000);
     }
 
-    // bomb explodes after 3 seconds
+    // bomb explosion
     function bombExplosion() {
       bombPosition = bombXY[0] + "-" + bombXY[1];
       var positionAboveBomb = bombXY[0] + "-" + (bombXY[1]-1);
       var positionUnderBomb = bombXY[0] + "-" + (bombXY[1]+1);
       var positionLeftFromBomb = (bombXY[0]-1) + "-" + bombXY[1];
       var positionRightFromBomb = (bombXY[0]+1) + "-" + bombXY[1];
-
+      // rock explosions
       $("." + positionAboveBomb).removeClass("rock");
       $("." + positionUnderBomb).removeClass("rock");
       $("." + positionLeftFromBomb).removeClass("rock");
       $("." + positionRightFromBomb).removeClass("rock");
-
+      // remove bomb
       $("." + bombPosition).removeClass("bomb");
+      // when you get hit by the explosion
+      if (currentPosition == positionAboveBomb ||
+          currentPosition == positionUnderBomb ||
+          currentPosition == positionLeftFromBomb ||
+          currentPosition == positionRightFromBomb ||
+          currentPosition == bombPosition) {
+        alert("je bent omgekomen bij een bomexplosie");
+      }
     }
 
     // show player on current cell
