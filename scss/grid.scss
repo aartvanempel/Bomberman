@@ -20,6 +20,15 @@
   background-color: black;
 }
 
+.animation {
+  animation: explosion 0.5s 1;
+}
+
+@keyframes explosion{
+  0% {background-color: inherit}
+  50% {background-color: red}
+  100% {background-color: inherit}
+}
 
 .powerup {
   background-color: green;
