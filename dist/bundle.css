@@ -5,14 +5,21 @@
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  height: 32rem;
-  width: 32rem;
-  background-color: tomato;
+  height: 30rem;
+  width: 30rem;
 }
 
 .cell {
   width: 2rem;
   height: 2rem;
+}
+
+.bedrock {
+  background-color: black;
+}
+
+.rock {
+  background-color: saddlebrown;
 }
 
 .current-cell {
@@ -38,4 +45,9 @@ body {
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
+}
+
+.bomb {
+  background-color: #f1c40f;
+  border-radius: 50%;
 }

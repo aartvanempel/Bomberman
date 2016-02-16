@@ -8,21 +8,30 @@ app.controller('playerCtrl', function($scope) {
 
     $scope.keyBuffer.push(e.keyCode);
 
-    if (event.which == 38 && start[0] > 0) {
-      console.log("up");
-      start[0] -= 1;
+    // move up
+    if (event.which == 38 && start[1] > 0) {
+      start[1] -= 1;
       event.preventDefault();
-    } if (event.which == 39 && start[1] < 15) {
-      console.log("right");
+    }
+    // move down
+    if (event.which == 40 && start[1] < 15) {
       start[1] += 1;
       event.preventDefault();
-    } if (event.which == 40 && start[0] < 15) {
-      console.log("right");
+    }
+    // move right
+    if (event.which == 39 && start[0] < 15) {
       start[0] += 1;
       event.preventDefault();
-    } if (event.which == 37 && start[1] > 0) {
-      console.log("left");
-      start[1] -= 1;
+    }
+    // move left
+    if (event.which == 37 && start[0] > 0) {
+      start[0] -= 1;
+      event.preventDefault();
+    }
+
+    // place bomb with space bar
+    if (event.which == 32) {
+      $("." + currentPosition).addClass("bomb");
       event.preventDefault();
     }
 
