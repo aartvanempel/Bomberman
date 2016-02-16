@@ -24,6 +24,10 @@
   background-color: black;
 }
 
+.rock {
+  background-color: saddlebrown;
+}
+
 .current-cell {
   background-color: #fff;
 }
