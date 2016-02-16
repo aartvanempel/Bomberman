@@ -14,7 +14,8 @@ app.controller('playerCtrl', function($scope) {
       event.preventDefault();
       var positionAboveCurrent = $("." + start[0] + "-" + (start[1]-1));
       if (positionAboveCurrent.hasClass("bedrock") ||
-          positionAboveCurrent.hasClass("bomb")) {
+          positionAboveCurrent.hasClass("bomb") ||
+          positionAboveCurrent.hasClass("rock")) {
         start[1] = start[1];
         console.log("boven u ligt een object");
       } else {
@@ -26,7 +27,8 @@ app.controller('playerCtrl', function($scope) {
       event.preventDefault();
       var positionUnderCurrent = $("." + start[0] + "-" + (start[1]+1));
       if (positionUnderCurrent.hasClass("bedrock") ||
-          positionUnderCurrent.hasClass("bomb")) {
+          positionUnderCurrent.hasClass("bomb") ||
+          positionUnderCurrent.hasClass("rock")) {
         start[1] = start[1];
         console.log("onder u ligt een object");
       } else {
@@ -38,7 +40,8 @@ app.controller('playerCtrl', function($scope) {
       event.preventDefault();
       var positionRightFromCurrent = $("." + (start[0]+1) + "-" + start[1]);
       if (positionRightFromCurrent.hasClass("bedrock") ||
-          positionRightFromCurrent.hasClass("bomb")) {
+          positionRightFromCurrent.hasClass("bomb") ||
+          positionRightFromCurrent.hasClass("rock")) {
         start[0] = start[0];
         console.log("rechts van u ligt een object");
       } else {
@@ -50,7 +53,8 @@ app.controller('playerCtrl', function($scope) {
       event.preventDefault();
       var positionLeftFromCurrent = $("." + (start[0]-1) + "-" + start[1]);
       if (positionLeftFromCurrent.hasClass("bedrock") ||
-          positionLeftFromCurrent.hasClass("bomb")) {
+          positionLeftFromCurrent.hasClass("bomb") ||
+          positionLeftFromCurrent.hasClass("rock")) {
         start[0] = start[0];
         console.log("links van u ligt een object");
       } else {
