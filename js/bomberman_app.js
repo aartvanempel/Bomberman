@@ -7,6 +7,9 @@ var maxPowerUps = 4;
 var playerPowerUp = 1;
 var totalPowerUps = 0;
 
+var maxBombs = 3;
+var totalBombs = 0;
+
 
 /* App Module */
 

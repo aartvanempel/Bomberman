@@ -94,6 +94,13 @@ hangmanApp.controller('playerCtrl', function($scope) {
       }
     }
 
+    if ($(".current-cell").hasClass("bombupgrade")) {
+      if (bombStash < 4) {
+        $(".current-cell").removeClass("bombupgrade");
+        bombStash++;
+      }
+    }
+
     /////////////////
     //bomb explosion
     /////////////////
@@ -192,25 +199,32 @@ hangmanApp.controller('playerCtrl', function($scope) {
       //Rock destroy
       if ($above.hasClass("rock")) {
         console.log("RockABOVE");
-        dropPowerUp(positionAboveBomb);
-
-        $above.removeClass("rock");
+        if (!$above.hasClass("bedrock")) {
+          dropPowerUp(positionAboveBomb);
+          $above.removeClass("rock");
+        }
       }
       if ($below.hasClass("rock")) {
         console.log("rockBELOW");
-        dropPowerUp(positionUnderBomb);
-        $below.removeClass("rock");
+        if (!$below.hasClass("bedrock")) {
+          dropPowerUp(positionUnderBomb);
+          $below.removeClass("rock");
+        }
 
       }
       if ($left.hasClass("rock")) {
         console.log("rockLeft");
-        dropPowerUp(positionLeftFromBomb);
-        $left.removeClass("rock");
+        if (!$left.hasClass("bedrock")) {
+          dropPowerUp(positionLeftFromBomb);
+          $left.removeClass("rock");
+        }
       }
       if ($right.hasClass("rock")) {
         console.log("rockRight");
-        dropPowerUp(positionRightFromBomb);
-        $right.removeClass("rock");
+        if (!$right.hasClass("bedrock")) {
+          dropPowerUp(positionRightFromBomb);
+          $right.removeClass("rock");
+        }
       }
 
       // remove bomb
