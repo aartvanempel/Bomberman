@@ -232,7 +232,9 @@ hangmanApp.controller('playerCtrl', function($scope) {
 
       // when you get hit by the explosion
       if ($(".current-cell").hasClass("animation")) {
-        alert("je bent omgekomen bij een bomexplosie");
+        $(".current-cell").addClass("dead");
+        alert("Uw apenhoofd is ontploft door een bom");
+        location.reload();
       }
     }
 
