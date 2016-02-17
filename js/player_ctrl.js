@@ -1,6 +1,7 @@
 var start = [0,0];
 var currentPosition;
 var bombPosition;
+var bombStash = 1; // number of bombs player can drop
 
 hangmanApp.controller('playerCtrl', function($scope) {
 
@@ -65,10 +66,13 @@ hangmanApp.controller('playerCtrl', function($scope) {
     // drop a bomb with the space bar
     if (event.which == 32) {
       event.preventDefault();
-      $("." + currentPosition).addClass("bomb");
-      var bombXY = [start[0], start[1]];
-      // bomb explodes after 3 seconds
-      setTimeout(bombExplosion, 3000);
+      // number of bombs you can drop (default number is 1)
+      if ($(".bomb").length < bombStash) {
+        $("." + currentPosition).addClass("bomb");
+        var bombXY = [start[0], start[1]];
+        // bomb explodes after 3 seconds
+        setTimeout(bombExplosion, 3000);
+      }
     }
 
     /////////////////
@@ -89,8 +93,6 @@ hangmanApp.controller('playerCtrl', function($scope) {
         playerPowerUp++;
       }
     }
-
-
 
     /////////////////
     //bomb explosion
@@ -228,5 +230,3 @@ hangmanApp.controller('playerCtrl', function($scope) {
 
   };
 });
-
-
