@@ -104,6 +104,7 @@ hangmanApp.controller('playerCtrl', function($scope) {
     /////////////////
 
     function bombExplosion() {
+
         var bombPosition = bombXY[0] + "-" + bombXY[1];
 
         var bombPos = bombXY;
@@ -122,11 +123,8 @@ hangmanApp.controller('playerCtrl', function($scope) {
 
             //beneden
             if (!bedrockBelow) {
-                console.log("down: " + bombPos[0] + " " + (bombPos[1] + i + 1));
-                console.log("bedrock false");
                 var bombBelow = bombPos[0] + "-" + (bombPos[1] + i + 1);
                 if ($("." + bombBelow).hasClass("bedrock")) {
-                    console.log("bedrock True");
                     bedrockBelow = true;
                 }
                 else if ($("." + bombBelow).hasClass("rock")) {
@@ -134,7 +132,6 @@ hangmanApp.controller('playerCtrl', function($scope) {
                         $("." + bombBelow).addClass("flame");
                         dropPowerUp(bombBelow);
                         rockBelow = true;
-
                     }
                 }
                 else if ($("." + bombBelow).hasClass("cell")) {
@@ -143,13 +140,9 @@ hangmanApp.controller('playerCtrl', function($scope) {
             }
 
             //boven
-
             if (!bedrockAbove) {
-                console.log("up: " + bombPos[0] + " " + (bombPos[1] - i - 1));
                 var bombAbove = bombPos[0] + "-" + (bombPos[1] - i - 1);
-                console.log("bedrock false");
                 if ($("." + bombAbove).hasClass("bedrock")) {
-                    console.log("bedrock True");
                     bedrockAbove = true;
                 }
                 else if ($("." + bombAbove).hasClass("rock")) {
@@ -166,12 +159,8 @@ hangmanApp.controller('playerCtrl', function($scope) {
 
             //links
             if (!bedrockLeft) {
-
-                console.log("Left: " + (bombPos[0] + i + 1) + " " +  bombPos[1]);
                 var bombLeft = (bombPos[0] + i + 1) + "-" +  bombPos[1];
-                console.log("bedrock false");
                 if ($("." + bombLeft).hasClass("bedrock")) {
-                    console.log("bedrock True");
                     bedrockLeft = true;
                 }
                 else if ($("." + bombLeft).hasClass("rock")) {
@@ -187,14 +176,9 @@ hangmanApp.controller('playerCtrl', function($scope) {
             }
 
             //rechts
-
             if (!bedrockRight) {
-
-                console.log("right: " + (bombPos[0] - i - 1) + " " + bombPos[1]);
                 var bombRight = (bombPos[0] - i - 1) + "-" + bombPos[1];
-                console.log("bedrock false");
                 if ($("." + bombRight).hasClass("bedrock")) {
-                    console.log("bedrock True");
                     bedrockRight = true;
                 }
                 else if ($("." + bombRight).hasClass("rock")) {
@@ -210,17 +194,11 @@ hangmanApp.controller('playerCtrl', function($scope) {
             }
         }
 
-
-
-
       // bomb position
       $("." + bombPosition).addClass("flame");
 
-
       // destroy rock
       $(".flame").removeClass("rock").addClass("explosion-animation");
-
-
 
       // remove explosion-animation class
       setTimeout(function() {
@@ -230,6 +208,7 @@ hangmanApp.controller('playerCtrl', function($scope) {
 
       // remove bomb
       $("." + bombPosition).removeClass("bomb");
+
       // you're dead
       if (!$(".current-cell").hasClass("bedrock") && $(".current-cell").hasClass("flame")) {
         alert("U bent gestorven door de vlam van een bomexplosie");
