@@ -22,13 +22,13 @@
   background-size: cover;
 }
 
-.animation {
-  animation: explosion 0.5s 1;
+.explosion-animation {
+  animation: explosion 400ms;
 }
 
 @keyframes explosion{
   0% {background-color: inherit}
-  50% {background-color: red}
+  50% {background-color: tomato}
   100% {background-color: inherit}
 }
 
