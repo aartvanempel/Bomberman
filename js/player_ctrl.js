@@ -1,6 +1,5 @@
-var start = [0,0];
+var cellXY = [0,0];
 var currentPosition;
-var bombPosition;
 var bombStash = 1; // number of bombs player can drop
 
 hangmanApp.controller('playerCtrl', function($scope) {
@@ -11,55 +10,55 @@ hangmanApp.controller('playerCtrl', function($scope) {
     $scope.keyBuffer.push(e.keyCode);
 
     // move up
-    if (event.which == 38 && start[1] > 0) {
+    if (event.which == 38 && cellXY[1] > 0) {
       event.preventDefault();
-      var positionAboveCurrent = $("." + start[0] + "-" + (start[1]-1));
-      if (positionAboveCurrent.hasClass("bedrock") ||
-          positionAboveCurrent.hasClass("bomb") ||
-          positionAboveCurrent.hasClass("rock")) {
-        start[1] = start[1];
+      var $positionAboveCurrent = $("." + cellXY[0] + "-" + (cellXY[1]-1));
+      if ($positionAboveCurrent.hasClass("bedrock") ||
+          $positionAboveCurrent.hasClass("bomb") ||
+          $positionAboveCurrent.hasClass("rock")) {
+        cellXY[1] = cellXY[1];
         console.log("boven u ligt een object");
       } else {
-      start[1] -= 1;
+      cellXY[1] -= 1;
       }
     }
     // move down
-    if (event.which == 40 && start[1] < 14) {
+    if (event.which == 40 && cellXY[1] < 14) {
       event.preventDefault();
-      var positionUnderCurrent = $("." + start[0] + "-" + (start[1]+1));
-      if (positionUnderCurrent.hasClass("bedrock") ||
-          positionUnderCurrent.hasClass("bomb") ||
-          positionUnderCurrent.hasClass("rock")) {
-        start[1] = start[1];
+      var $positionBelowCurrent = $("." + cellXY[0] + "-" + (cellXY[1]+1));
+      if ($positionBelowCurrent.hasClass("bedrock") ||
+          $positionBelowCurrent.hasClass("bomb") ||
+          $positionBelowCurrent.hasClass("rock")) {
+        cellXY[1] = cellXY[1];
         console.log("onder u ligt een object");
       } else {
-      start[1] += 1;
+      cellXY[1] += 1;
       }
     }
     // move right
-    if (event.which == 39 && start[0] < 14) {
+    if (event.which == 39 && cellXY[0] < 14) {
       event.preventDefault();
-      var positionRightFromCurrent = $("." + (start[0]+1) + "-" + start[1]);
-      if (positionRightFromCurrent.hasClass("bedrock") ||
-          positionRightFromCurrent.hasClass("bomb") ||
-          positionRightFromCurrent.hasClass("rock")) {
-        start[0] = start[0];
+      var $positionRightFromCurrent = $("." + (cellXY[0]+1) + "-" + cellXY[1]);
+      if ($positionRightFromCurrent.hasClass("bedrock") ||
+          $positionRightFromCurrent.hasClass("bomb") ||
+          $positionRightFromCurrent.hasClass("rock")) {
+        cellXY[0] = cellXY[0];
         console.log("rechts van u ligt een object");
       } else {
-      start[0] += 1;
+      cellXY[0] += 1;
       }
     }
     // move left
-    if (event.which == 37 && start[0] > 0) {
+    if (event.which == 37 && cellXY[0] > 0) {
       event.preventDefault();
-      var positionLeftFromCurrent = $("." + (start[0]-1) + "-" + start[1]);
-      if (positionLeftFromCurrent.hasClass("bedrock") ||
-          positionLeftFromCurrent.hasClass("bomb") ||
-          positionLeftFromCurrent.hasClass("rock")) {
-        start[0] = start[0];
+      var $positionLeftFromCurrent = $("." + (cellXY[0]-1) + "-" + cellXY[1]);
+      if ($positionLeftFromCurrent.hasClass("bedrock") ||
+          $positionLeftFromCurrent.hasClass("bomb") ||
+          $positionLeftFromCurrent.hasClass("rock")) {
+        cellXY[0] = cellXY[0];
         console.log("links van u ligt een object");
       } else {
-      start[0] -= 1;
+      cellXY[0] -= 1;
       }
     }
 
@@ -69,28 +68,26 @@ hangmanApp.controller('playerCtrl', function($scope) {
       // number of bombs you can drop (default number is 1)
       if ($(".bomb").length < bombStash) {
         $("." + currentPosition).addClass("bomb");
-        var bombXY = [start[0], start[1]];
+        var bombXY = [cellXY[0], cellXY[1]];
         // bomb explodes after 3 seconds
-        setTimeout(bombExplosion, 3000);
+        setTimeout(bombExplosion, 2000);
       }
     }
 
     /////////////////
     //Player movement
     /////////////////
-
-    currentPosition = start[0] + "-" + start[1];
+    // show player on current cell
+    currentPosition = cellXY[0] + "-" + cellXY[1];
     console.log(currentPosition);
     $(".cell").removeClass("current-cell");
     $("." + currentPosition).addClass("current-cell");
 
-
     //powerup if player gets the powerup cell
-
     if ($(".current-cell").hasClass("powerup")) {
-      if (playerPowerUp < 4) {
+      if (flameRange < 4) {
         $(".current-cell").removeClass("powerup");
-        playerPowerUp++;
+        flameRange++;
       }
     }
 
@@ -106,143 +103,76 @@ hangmanApp.controller('playerCtrl', function($scope) {
     /////////////////
 
     function bombExplosion() {
-      bombPosition = bombXY[0] + "-" + bombXY[1];
+      var flameRange = 3;
+      var bombPosition = bombXY[0] + "-" + bombXY[1];
+      var positionAboveBomb = bombXY[0] + "-" + (bombXY[1]-1);
+      var positionBelowBomb = bombXY[0] + "-" + (bombXY[1]+1);
+      var positionLeftFromBomb = (bombXY[0]-1) + "-" + bombXY[1];
+      var positionRightFromBomb = (bombXY[0]+1) + "-" + bombXY[1];
 
-      //bombpositions for powerups
-
-      var positionAboveBomb = bombXY[0] + "-" + (bombXY[1] - 1);
-      var positionUnderBomb = bombXY[0] + "-" + (bombXY[1] + 1);
-      var positionLeftFromBomb = (bombXY[0] - 1) + "-" + bombXY[1];
-      var positionRightFromBomb = (bombXY[0] + 1) + "-" + bombXY[1];
-      var positionAboveBomb2 = bombXY[0] + "-" + (bombXY[1] - 2);
-      var positionUnderBomb2 = bombXY[0] + "-" + (bombXY[1] + 2);
-      var positionLeftFromBomb2 = (bombXY[0] - 2) + "-" + bombXY[1];
-      var positionRightFromBomb2 = (bombXY[0] + 2) + "-" + bombXY[1];
-      var positionAboveBomb3 = bombXY[0] + "-" + (bombXY[1] - 3);
-      var positionUnderBomb3 = bombXY[0] + "-" + (bombXY[1] + 3);
-      var positionLeftFromBomb3 = (bombXY[0] - 3) + "-" + bombXY[1];
-      var positionRightFromBomb3 = (bombXY[0] + 3) + "-" + bombXY[1];
-      var positionAboveBomb4 = bombXY[0] + "-" + (bombXY[1] - 4);
-      var positionUnderBomb4 = bombXY[0] + "-" + (bombXY[1] + 4);
-      var positionLeftFromBomb4 = (bombXY[0] - 4) + "-" + bombXY[1];
-      var positionRightFromBomb4 = (bombXY[0] + 4) + "-" + bombXY[1];
-
-      //listing of bombpositions
-      var bombPositionList1 = [];
-      var bombPositionList2 = [];
-      var bombPositionList3 = [];
-      var bombPositionList4 = [];
-
-      //putting bombpositions in the lists
-      bombPositionList1.push(positionAboveBomb,positionRightFromBomb,positionUnderBomb,positionLeftFromBomb);
-      bombPositionList2.push(positionAboveBomb2,positionRightFromBomb2,positionUnderBomb2,positionLeftFromBomb2);
-      bombPositionList3.push(positionAboveBomb3,positionRightFromBomb3,positionUnderBomb3,positionLeftFromBomb3);
-      bombPositionList4.push(positionAboveBomb4,positionRightFromBomb4,positionUnderBomb4,positionLeftFromBomb4);
-
-
-      switch(playerPowerUp) {
-        case 1:
-          console.log("Power Up: 1");
-          var $above = $("." + bombPositionList1[0]);
-          var $right = $("." + bombPositionList1[1]);
-          var $below = $("." + bombPositionList1[2]);
-          var $left = $("." + bombPositionList1[3]);
-          break;
-        case 2:
-          console.log("Power Up: 2");
-          var $above = $("." + bombPositionList1[0] + ",." + bombPositionList2[0]);
-          var $right = $("." + bombPositionList1[1] + ",." + bombPositionList2[1]);
-          var $below = $("." + bombPositionList1[2] + ",." + bombPositionList2[2]);
-          var $left = $("." + bombPositionList1[3] + ",." + bombPositionList2[3]);
-          break;
-        case 3:
-          console.log("Power Up: 3");
-          var $above = $("." + bombPositionList1[0] + ",." + bombPositionList2[0] + ",." + bombPositionList3[0]);
-          var $right = $("." + bombPositionList1[1] + ",." + bombPositionList2[1] + ",." + bombPositionList3[1]);
-          var $below = $("." + bombPositionList1[2] + ",." + bombPositionList2[2] + ",." + bombPositionList3[2]);
-          var $left = $("." + bombPositionList1[3] + ",." + bombPositionList2[3] + ",." + bombPositionList3[3]);
-          break;
-        case 4:
-          console.log("Power Up: 4");
-          var $above = $("." + bombPositionList1[0] + ",." + bombPositionList2[0] + ",." + bombPositionList3[0] + ",." + bombPositionList4[0]);
-          var $right = $("." + bombPositionList1[1] + ",." + bombPositionList2[1] + ",." + bombPositionList3[1] + ",." + bombPositionList4[1]);
-          var $below = $("." + bombPositionList1[2] + ",." + bombPositionList2[2] + ",." + bombPositionList3[2] + ",." + bombPositionList4[2]);
-          var $left = $("." + bombPositionList1[3] + ",." + bombPositionList2[3] + ",." + bombPositionList3[3] + ",." + bombPositionList4[3]);
-          break;
-        default:
-          console.log("SWITCH ERROR")
+      // flames XLeft
+      var flameCounterXLeft = 1;
+      for (var i = 0; i < flameRange; i++) {
+        if ($("." + (bombXY[0]-flameCounterXLeft) + "-" + bombXY[1]).is(".rock")) {
+          $("." + (bombXY[0]-flameCounterXLeft) + "-" + bombXY[1]).addClass("flame");
+        }
+        else if (!$("." + (bombXY[0]-flameCounterXLeft) + "-" + bombXY[1]).is(".bedrock")) {
+          $("." + (bombXY[0]-flameCounterXLeft) + "-" + bombXY[1]).addClass("flame");
+          flameCounterXLeft++;
+        }
       }
 
-      //explosion animations
-      if (!$above.hasClass("bedrock")) {
-        $above.addClass("animation");
-      }
-      if (!$below.hasClass("bedrock")) {
-        $below.addClass("animation");
-      }
-      if (!$left.hasClass("bedrock")) {
-        $left.addClass("animation");
-      }
-      if (!$right.hasClass("bedrock")) {
-        $right.addClass("animation");
+      // flames XRight
+      var flameCounterXRight = 1;
+      for (var i = 0; i < flameRange; i++) {
+        if ($("." + (bombXY[0]+flameCounterXRight) + "-" + bombXY[1]).is(".rock")) {
+          $("." + (bombXY[0]+flameCounterXRight) + "-" + bombXY[1]).addClass("flame");
+        }
+        else if (!$("." + (bombXY[0]+flameCounterXRight) + "-" + bombXY[1]).is(".bedrock")) {
+          $("." + (bombXY[0]+flameCounterXRight) + "-" + bombXY[1]).addClass("flame");
+          flameCounterXRight++;
+        }
       }
 
-      //remove animations
+      // flames YUp
+      var flameCounterYUp = 1;
+      for (var i = 0; i < flameRange; i++) {
+        if ($("." + bombXY[0] + "-" + (bombXY[1]-flameCounterYUp)).is(".rock")) {
+          $("." + bombXY[0] + "-" + (bombXY[1]-flameCounterYUp)).addClass("flame");
+        }
+        else if (!$("." + bombXY[0] + "-" + (bombXY[1]-flameCounterYUp)).is(".bedrock")) {
+          $("." + bombXY[0] + "-" + (bombXY[1]-flameCounterYUp)).addClass("flame");
+          flameCounterYUp++;
+        }
+      }
+
+      // flames YDown
+      var flameCounterYDown = 1;
+      for (var i = 0; i < flameRange; i++) {
+        if ($("." + bombXY[0] + "-" + (bombXY[1]+flameCounterYDown)).is(".rock")) {
+          $("." + bombXY[0] + "-" + (bombXY[1]+flameCounterYDown)).addClass("flame");
+        }
+        else if (!$("." + bombXY[0] + "-" + (bombXY[1]+flameCounterYDown)).is(".bedrock")) {
+          $("." + bombXY[0] + "-" + (bombXY[1]+flameCounterYDown)).addClass("flame");
+          flameCounterYDown++;
+        }
+      }
+
+      // bomb position
+      $("." + bombPosition).addClass("flame");
+      // destroy rock
+      $(".flame").removeClass("rock").addClass("explosion-animation");
+      // remove explosion-animation class
       setTimeout(function() {
-        $above.removeClass("animation");
-        $below.removeClass("animation");
-        $left.removeClass("animation");
-        $right.removeClass("animation");
+        $(".explosion-animation").removeClass("explosion-animation");
+        $(".flame").removeClass("flame");
       }, 800);
-
-
-      //Rock destroy
-      if ($above.hasClass("rock")) {
-        console.log("RockABOVE");
-        if (!$above.hasClass("bedrock")) {
-          dropPowerUp(positionAboveBomb);
-          $above.removeClass("rock");
-        }
-      }
-      if ($below.hasClass("rock")) {
-        console.log("rockBELOW");
-        if (!$below.hasClass("bedrock")) {
-          dropPowerUp(positionUnderBomb);
-          $below.removeClass("rock");
-        }
-
-      }
-      if ($left.hasClass("rock")) {
-        console.log("rockLeft");
-        if (!$left.hasClass("bedrock")) {
-          dropPowerUp(positionLeftFromBomb);
-          $left.removeClass("rock");
-        }
-      }
-      if ($right.hasClass("rock")) {
-        console.log("rockRight");
-        if (!$right.hasClass("bedrock")) {
-          dropPowerUp(positionRightFromBomb);
-          $right.removeClass("rock");
-        }
-      }
-
       // remove bomb
       $("." + bombPosition).removeClass("bomb");
-
-      // when you get hit by the explosion
-      if ($(".current-cell").hasClass("animation")) {
-        $(".current-cell").addClass("dead");
-        alert("Uw apenhoofd is ontploft door een bom");
-        location.reload();
+      // you're dead
+      if (!$(".current-cell").hasClass("bedrock") && $(".current-cell").hasClass("flame")) {
+        alert("U bent gestorven door de vlam van een bomexplosie");
       }
     }
-
-
-    // show player on current cell
-
-
-
-
   };
 });
