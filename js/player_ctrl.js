@@ -103,10 +103,7 @@ hangmanApp.controller('playerCtrl', function($scope) {
     /////////////////
 
     function bombExplosion() {
-      var flameRangeXLeft = 3;
-      var flameRangeXRight = 3;
-      var flameRangeYUp = 3;
-      var flameRangeYDown = 3;
+      var flameRange = 3;
       var bombPosition = bombXY[0] + "-" + bombXY[1];
       var positionAboveBomb = bombXY[0] + "-" + (bombXY[1]-1);
       var positionBelowBomb = bombXY[0] + "-" + (bombXY[1]+1);
@@ -115,7 +112,7 @@ hangmanApp.controller('playerCtrl', function($scope) {
 
       // flames XLeft
       var flameCounterXLeft = 1;
-      for (var i = 0; i < flameRangeXLeft; i++) {
+      for (var i = 0; i < flameRange; i++) {
         if ($("." + (bombXY[0]-flameCounterXLeft) + "-" + bombXY[1]).is(".rock")) {
           $("." + (bombXY[0]-flameCounterXLeft) + "-" + bombXY[1]).addClass("flame");
         }
@@ -127,7 +124,7 @@ hangmanApp.controller('playerCtrl', function($scope) {
 
       // flames XRight
       var flameCounterXRight = 1;
-      for (var i = 0; i < flameRangeXRight; i++) {
+      for (var i = 0; i < flameRange; i++) {
         if ($("." + (bombXY[0]+flameCounterXRight) + "-" + bombXY[1]).is(".rock")) {
           $("." + (bombXY[0]+flameCounterXRight) + "-" + bombXY[1]).addClass("flame");
         }
@@ -139,7 +136,7 @@ hangmanApp.controller('playerCtrl', function($scope) {
 
       // flames YUp
       var flameCounterYUp = 1;
-      for (var i = 0; i < flameRangeYUp; i++) {
+      for (var i = 0; i < flameRange; i++) {
         if ($("." + bombXY[0] + "-" + (bombXY[1]-flameCounterYUp)).is(".rock")) {
           $("." + bombXY[0] + "-" + (bombXY[1]-flameCounterYUp)).addClass("flame");
         }
@@ -151,7 +148,7 @@ hangmanApp.controller('playerCtrl', function($scope) {
 
       // flames YDown
       var flameCounterYDown = 1;
-      for (var i = 0; i < flameRangeYDown; i++) {
+      for (var i = 0; i < flameRange; i++) {
         if ($("." + bombXY[0] + "-" + (bombXY[1]+flameCounterYDown)).is(".rock")) {
           $("." + bombXY[0] + "-" + (bombXY[1]+flameCounterYDown)).addClass("flame");
         }
