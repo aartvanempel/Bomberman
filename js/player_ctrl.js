@@ -1,6 +1,7 @@
 var cellXY = [0,0];
 var currentPosition;
 var bombStash = 1; // number of bombs player can drop
+var flameRange = 1;
 
 hangmanApp.controller('playerCtrl', function($scope) {
 
@@ -103,70 +104,130 @@ hangmanApp.controller('playerCtrl', function($scope) {
     /////////////////
 
     function bombExplosion() {
-      var flameRange = 3;
-      var bombPosition = bombXY[0] + "-" + bombXY[1];
-      var positionAboveBomb = bombXY[0] + "-" + (bombXY[1]-1);
-      var positionBelowBomb = bombXY[0] + "-" + (bombXY[1]+1);
-      var positionLeftFromBomb = (bombXY[0]-1) + "-" + bombXY[1];
-      var positionRightFromBomb = (bombXY[0]+1) + "-" + bombXY[1];
+        var bombPosition = bombXY[0] + "-" + bombXY[1];
 
-      // flames XLeft
-      var flameCounterXLeft = 1;
-      for (var i = 0; i < flameRange; i++) {
-        if ($("." + (bombXY[0]-flameCounterXLeft) + "-" + bombXY[1]).is(".rock")) {
-          $("." + (bombXY[0]-flameCounterXLeft) + "-" + bombXY[1]).addClass("flame");
-        }
-        else if (!$("." + (bombXY[0]-flameCounterXLeft) + "-" + bombXY[1]).is(".bedrock")) {
-          $("." + (bombXY[0]-flameCounterXLeft) + "-" + bombXY[1]).addClass("flame");
-          flameCounterXLeft++;
-        }
-      }
+        var bombPos = bombXY;
 
-      // flames XRight
-      var flameCounterXRight = 1;
-      for (var i = 0; i < flameRange; i++) {
-        if ($("." + (bombXY[0]+flameCounterXRight) + "-" + bombXY[1]).is(".rock")) {
-          $("." + (bombXY[0]+flameCounterXRight) + "-" + bombXY[1]).addClass("flame");
-        }
-        else if (!$("." + (bombXY[0]+flameCounterXRight) + "-" + bombXY[1]).is(".bedrock")) {
-          $("." + (bombXY[0]+flameCounterXRight) + "-" + bombXY[1]).addClass("flame");
-          flameCounterXRight++;
-        }
-      }
+        var bedrockBelow = false;
+        var bedrockAbove = false;
+        var bedrockLeft = false;
+        var bedrockRight = false;
 
-      // flames YUp
-      var flameCounterYUp = 1;
-      for (var i = 0; i < flameRange; i++) {
-        if ($("." + bombXY[0] + "-" + (bombXY[1]-flameCounterYUp)).is(".rock")) {
-          $("." + bombXY[0] + "-" + (bombXY[1]-flameCounterYUp)).addClass("flame");
-        }
-        else if (!$("." + bombXY[0] + "-" + (bombXY[1]-flameCounterYUp)).is(".bedrock")) {
-          $("." + bombXY[0] + "-" + (bombXY[1]-flameCounterYUp)).addClass("flame");
-          flameCounterYUp++;
-        }
-      }
+        var rockBelow = false;
+        var rockAbove = false;
+        var rockLeft = false;
+        var rockRight = false;
 
-      // flames YDown
-      var flameCounterYDown = 1;
-      for (var i = 0; i < flameRange; i++) {
-        if ($("." + bombXY[0] + "-" + (bombXY[1]+flameCounterYDown)).is(".rock")) {
-          $("." + bombXY[0] + "-" + (bombXY[1]+flameCounterYDown)).addClass("flame");
+        for (var i = 0; i < flameRange; i++) {
+
+            //beneden
+            if (!bedrockBelow) {
+                console.log("down: " + bombPos[0] + " " + (bombPos[1] + i + 1));
+                console.log("bedrock false");
+                var bombBelow = bombPos[0] + "-" + (bombPos[1] + i + 1);
+                if ($("." + bombBelow).hasClass("bedrock")) {
+                    console.log("bedrock True");
+                    bedrockBelow = true;
+                }
+                else if ($("." + bombBelow).hasClass("rock")) {
+                    if (!rockBelow) {
+                        $("." + bombBelow).addClass("flame");
+                        dropPowerUp(bombBelow);
+                        rockBelow = true;
+
+                    }
+                }
+                else if ($("." + bombBelow).hasClass("cell")) {
+                    $("." + bombBelow).addClass("flame");
+                }
+            }
+
+            //boven
+
+            if (!bedrockAbove) {
+                console.log("up: " + bombPos[0] + " " + (bombPos[1] - i - 1));
+                var bombAbove = bombPos[0] + "-" + (bombPos[1] - i - 1);
+                console.log("bedrock false");
+                if ($("." + bombAbove).hasClass("bedrock")) {
+                    console.log("bedrock True");
+                    bedrockAbove = true;
+                }
+                else if ($("." + bombAbove).hasClass("rock")) {
+                    if (!rockAbove) {
+                        $("." + bombAbove).addClass("flame");
+                        dropPowerUp(bombAbove);
+                        rockAbove = true;
+                    }
+                }
+                else if ($("." + bombAbove).hasClass("rock") || $("." + bombAbove).hasClass("cell")) {
+                    $("." + bombAbove).addClass("flame");
+                }
+            }
+
+            //links
+            if (!bedrockLeft) {
+
+                console.log("Left: " + (bombPos[0] + i + 1) + " " +  bombPos[1]);
+                var bombLeft = (bombPos[0] + i + 1) + "-" +  bombPos[1];
+                console.log("bedrock false");
+                if ($("." + bombLeft).hasClass("bedrock")) {
+                    console.log("bedrock True");
+                    bedrockLeft = true;
+                }
+                else if ($("." + bombLeft).hasClass("rock")) {
+                    if (!rockLeft) {
+                        $("." + bombLeft).addClass("flame");
+                        dropPowerUp(bombLeft);
+                        rockLeft = true;
+                    }
+                }
+                else if ($("." + bombLeft).hasClass("rock") || $("." + bombLeft).hasClass("cell")) {
+                    $("." + bombLeft).addClass("flame");
+                }
+            }
+
+            //rechts
+
+            if (!bedrockRight) {
+
+                console.log("right: " + (bombPos[0] - i - 1) + " " + bombPos[1]);
+                var bombRight = (bombPos[0] - i - 1) + "-" + bombPos[1];
+                console.log("bedrock false");
+                if ($("." + bombRight).hasClass("bedrock")) {
+                    console.log("bedrock True");
+                    bedrockRight = true;
+                }
+                else if ($("." + bombRight).hasClass("rock")) {
+                    if (!rockRight) {
+                        $("." + bombRight).addClass("flame");
+                        dropPowerUp(bombRight);
+                        rockRight = true;
+                    }
+                }
+                else if ($("." + bombRight).hasClass("rock") || $("." + bombRight).hasClass("cell")) {
+                    $("." + bombRight).addClass("flame");
+                }
+            }
         }
-        else if (!$("." + bombXY[0] + "-" + (bombXY[1]+flameCounterYDown)).is(".bedrock")) {
-          $("." + bombXY[0] + "-" + (bombXY[1]+flameCounterYDown)).addClass("flame");
-          flameCounterYDown++;
-        }
-      }
+
+
+
 
       // bomb position
       $("." + bombPosition).addClass("flame");
+
+
       // destroy rock
       $(".flame").removeClass("rock").addClass("explosion-animation");
+
+
+
       // remove explosion-animation class
       setTimeout(function() {
         $(".explosion-animation").removeClass("explosion-animation");
         $(".flame").removeClass("flame");
       }, 800);
+
       // remove bomb
       $("." + bombPosition).removeClass("bomb");
       // you're dead
