@@ -1,6 +1,6 @@
 var cellXY = [0,0];
 var currentPosition;
-var bombStash = 10; // number of bombs player can drop
+var bombStash = 1; // number of bombs player can drop
 
 hangmanApp.controller('playerCtrl', function($scope) {
 
@@ -70,7 +70,7 @@ hangmanApp.controller('playerCtrl', function($scope) {
         $("." + currentPosition).addClass("bomb");
         var bombXY = [cellXY[0], cellXY[1]];
         // bomb explodes after 3 seconds
-        setTimeout(bombExplosion, 3000);
+        setTimeout(bombExplosion, 2000);
       }
     }
 
@@ -116,44 +116,48 @@ hangmanApp.controller('playerCtrl', function($scope) {
       // flames XLeft
       var flameCounterXLeft = 1;
       for (var i = 0; i < flameRangeXLeft; i++) {
-        if (!$("." + (bombXY[0]-flameCounterXLeft) + "-" + bombXY[1]).is(".bedrock, .rock, .bomb")) {
+        if ($("." + (bombXY[0]-flameCounterXLeft) + "-" + bombXY[1]).is(".rock")) {
+          $("." + (bombXY[0]-flameCounterXLeft) + "-" + bombXY[1]).addClass("flame");
+        }
+        else if (!$("." + (bombXY[0]-flameCounterXLeft) + "-" + bombXY[1]).is(".bedrock")) {
           $("." + (bombXY[0]-flameCounterXLeft) + "-" + bombXY[1]).addClass("flame");
           flameCounterXLeft++;
-        } else {
-          $("." + positionLeftFromBomb).addClass("flame");
         }
       }
 
       // flames XRight
       var flameCounterXRight = 1;
       for (var i = 0; i < flameRangeXRight; i++) {
-        if (!$("." + (bombXY[0]+flameCounterXRight) + "-" + bombXY[1]).is(".bedrock, .rock, .bomb")) {
+        if ($("." + (bombXY[0]+flameCounterXRight) + "-" + bombXY[1]).is(".rock")) {
+          $("." + (bombXY[0]+flameCounterXRight) + "-" + bombXY[1]).addClass("flame");
+        }
+        else if (!$("." + (bombXY[0]+flameCounterXRight) + "-" + bombXY[1]).is(".bedrock")) {
           $("." + (bombXY[0]+flameCounterXRight) + "-" + bombXY[1]).addClass("flame");
           flameCounterXRight++;
-        } else {
-          $("." + positionRightFromBomb).addClass("flame");
         }
       }
 
       // flames YUp
       var flameCounterYUp = 1;
       for (var i = 0; i < flameRangeYUp; i++) {
-        if (!$("." + bombXY[0] + "-" + (bombXY[1]-flameCounterYUp)).is(".bedrock, .rock, .bomb")) {
+        if ($("." + bombXY[0] + "-" + (bombXY[1]-flameCounterYUp)).is(".rock")) {
+          $("." + bombXY[0] + "-" + (bombXY[1]-flameCounterYUp)).addClass("flame");
+        }
+        else if (!$("." + bombXY[0] + "-" + (bombXY[1]-flameCounterYUp)).is(".bedrock")) {
           $("." + bombXY[0] + "-" + (bombXY[1]-flameCounterYUp)).addClass("flame");
           flameCounterYUp++;
-        } else {
-          $("." + positionAboveBomb).addClass("flame");
         }
       }
 
       // flames YDown
       var flameCounterYDown = 1;
       for (var i = 0; i < flameRangeYDown; i++) {
-        if (!$("." + bombXY[0] + "-" + (bombXY[1]+flameCounterYDown)).is(".bedrock, .rock, .bomb")) {
+        if ($("." + bombXY[0] + "-" + (bombXY[1]+flameCounterYDown)).is(".rock")) {
+          $("." + bombXY[0] + "-" + (bombXY[1]+flameCounterYDown)).addClass("flame");
+        }
+        else if (!$("." + bombXY[0] + "-" + (bombXY[1]+flameCounterYDown)).is(".bedrock")) {
           $("." + bombXY[0] + "-" + (bombXY[1]+flameCounterYDown)).addClass("flame");
           flameCounterYDown++;
-        } else {
-          $("." + positionBelowBomb).addClass("flame");
         }
       }
 
