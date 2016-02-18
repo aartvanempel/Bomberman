@@ -211,7 +211,8 @@ hangmanApp.controller('playerCtrl', function($scope) {
 
       // you're dead
       if (!$(".current-cell").hasClass("bedrock") && $(".current-cell").hasClass("flame")) {
-        alert("U bent gestorven door de vlam van een bomexplosie");
+        alert("DOOD");
+        location.reload();
       }
     }
   };
